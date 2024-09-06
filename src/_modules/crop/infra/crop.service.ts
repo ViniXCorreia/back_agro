@@ -1,0 +1,7 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class CropService {
+	constructor() //INJETAR OS ENDPOINTS
+	{}
+}
