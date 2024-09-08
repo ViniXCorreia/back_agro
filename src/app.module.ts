@@ -7,6 +7,7 @@ import { CropModule } from './_modules/crop/crop.module';
 import { RuralProducerModule } from './_modules/rural-producer/rural_producer.module';
 import { RuralProducerController } from './_modules/rural-producer/infra/rural_producer.controller';
 import { CropController } from './_modules/crop/infra/crop.controller';
+import { DashboardModule } from './_modules/dashboard/dashboard.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true, envFilePath: './.env' }),
@@ -14,6 +15,7 @@ import { CropController } from './_modules/crop/infra/crop.controller';
 		RepositoryProxyModule,
 		AuthModule,
 		CropModule,
+		DashboardModule,
 		RuralProducerModule,
 	],
 	controllers: [RuralProducerController, CropController],

@@ -70,7 +70,7 @@ export class RuralProducerService {
 		} catch (error) {
 			let [status, msg] = error.message.split('-');
 			throw new HttpException(
-				`${msg ?? 'Erro ao deletar produtor rural!.'}`,
+				`${msg ?? 'Erro ao buscar produtores rurais!.'}`,
 				+status
 			);
 		}
@@ -88,7 +88,7 @@ export class RuralProducerService {
 		} catch (error) {
 			let [status, msg] = error.message.split('-');
 			throw new HttpException(
-				`${msg ?? 'Erro ao deletar produtor rural!.'}`,
+				`${msg ?? 'Erro ao atualizar produtor rural!.'}`,
 				+status
 			);
 		}
