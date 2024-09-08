@@ -6,6 +6,7 @@ import { RuralProducerService } from './infra/rural_producer.service';
 @Module({
 	imports: [RepositoryProxyModule.register()],
 	controllers: [RuralProducerController],
+	providers: [RuralProducerService],
 	exports: [RuralProducerService],
 })
 export class RuralProducerModule {}
