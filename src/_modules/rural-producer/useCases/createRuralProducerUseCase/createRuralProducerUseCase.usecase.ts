@@ -41,7 +41,7 @@ export class CreateRuralProducerUseCase implements ICreateRuralProducerUseCase {
 			});
 			if (findRuralProducer) {
 				throw new Error(
-					'400 - Produto rural já cadastrado com o documento informado!'
+					'400 - Produtor rural já cadastrado com o documento informado!'
 				);
 			}
 			const checkArea =

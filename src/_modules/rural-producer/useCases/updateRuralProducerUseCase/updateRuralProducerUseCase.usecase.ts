@@ -1,19 +1,22 @@
 import { Inject, Logger } from '@nestjs/common';
 import { RuralProducerEntity } from 'src/infra/database/entities/rural_producer.entity';
 import { RepositoryProxyModule } from 'src/infra/database/proxy/repository.proxy.module';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import {
 	IUpdateRuralProducerDto,
 	IUpdateRuralProducerUseCase,
 } from './updateRuralProducerUseCase.interface';
 import { OperationResultsDto } from 'src/_shared/protocols/dto/operationResults.dto';
+import { CropEntity } from 'src/infra/database/entities/crop.entity';
 
 export class UpdateRuralProducerUseCase implements IUpdateRuralProducerUseCase {
 	logger = new Logger();
 
 	constructor(
 		@Inject(RepositoryProxyModule.RURAL_PRODUCER_REPOSITORY)
-		private readonly ruralProducerRepository: Repository<RuralProducerEntity>
+		private readonly ruralProducerRepository: Repository<RuralProducerEntity>,
+		@Inject(RepositoryProxyModule.CROP_REPOSITORY)
+		private readonly cropRepository: Repository<CropEntity>
 	) {}
 	async execute(
 		updateRuralProducerDto: IUpdateRuralProducerDto
@@ -37,6 +40,42 @@ export class UpdateRuralProducerUseCase implements IUpdateRuralProducerUseCase {
 			if (!findRuralProducer) {
 				throw new Error('400 - Essa produtor rural não existe!');
 			}
+			const checkArea =
+				updateRuralProducerDto.updateRuralProducerDto.arableArea +
+				updateRuralProducerDto.updateRuralProducerDto.vegetationArea;
+			if (checkArea > updateRuralProducerDto.updateRuralProducerDto.totalArea) {
+				throw new Error(
+					'400 - A soma da área agricultável e de vegetação ultrapassam a área total!'
+				);
+			}
+
+			const cropMap =
+				updateRuralProducerDto.updateRuralProducerDto.farmCrops.map((crop) =>
+					crop.crop.toUpperCase()
+				);
+			const findExistsCrops = await this.cropRepository.find({
+				where: {
+					crop: In(cropMap),
+				},
+			});
+
+			updateRuralProducerDto.updateRuralProducerDto.farmCrops.forEach(
+				(updatedCrops) => {
+					updatedCrops.crop = updatedCrops.crop.toUpperCase();
+				}
+			);
+
+			updateRuralProducerDto.updateRuralProducerDto.farmCrops =
+				updateRuralProducerDto.updateRuralProducerDto.farmCrops.map((crop) => {
+					const existingCrop = findExistsCrops.find(
+						(checkCrop) => checkCrop.crop === crop.crop
+					);
+					if (existingCrop) {
+						return existingCrop;
+					}
+					return crop;
+				});
+
 			const updateRuralProducer = {
 				...findRuralProducer,
 				...updateRuralProducerDto.updateRuralProducerDto,
