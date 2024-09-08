@@ -12,7 +12,9 @@ import { RuralProducerService } from './rural_producer.service';
 import { CreateRuralProducerDto } from './dto/createRuralProducer.dto';
 import { PaginationDto } from 'src/_shared/protocols/dto/pagination.dto';
 import { UpdateRuralProducerDto } from './dto/updateRuralProducer.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Rural Producers')
 @Controller('rural_producer')
 export class RuralProducerController {
 	constructor(private readonly ruralProducerService: RuralProducerService) {}

@@ -13,11 +13,15 @@ import { CropService } from './crop.service';
 import { CreateCropDto } from './dto/create_crop.dto';
 import { PaginationDto } from 'src/_shared/protocols/dto/pagination.dto';
 import { UpdateCropDto } from './dto/update_crop.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Crops')
 @Controller('crop')
 export class CropController {
 	constructor(private readonly cropService: CropService) {}
 
+	@ApiResponse({ status: 201, description: 'Cultura criada com sucesso' })
+	@ApiResponse({ status: 400, description: 'Essa cultura já esta cadastrada!' })
 	@Post('create')
 	async createCrop(@Body() createCropDto: CreateCropDto) {
 		return await this.cropService.createCrop(createCropDto);

@@ -55,7 +55,6 @@ export class FarmsPerStateUseCase implements IFarmsPerStateUseCase {
 				let farmState = new FarmsPerStateDto();
 				farmState.state = state;
 				farmState.count = farmsInState.length;
-				farmState.data = farmsInState;
 				farmsPerState.push(farmState);
 			});
 

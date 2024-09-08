@@ -11,6 +11,14 @@ import {
 	FARMS_PER_STATE_USE_CASE,
 	IFarmsPerStateUseCase,
 } from '../useCases/farmsPerStateUseCase/farmsPerStateUseCase.interface';
+import {
+	DATA_FOR_CROP_USE_CASE,
+	IDataForCropUseCase,
+} from '../useCases/dataForCropUseCase/dataForCropUseCase.inteface';
+import {
+	ISoilUsageUseCase,
+	SOIL_USAGE_USE_CASE,
+} from '../useCases/soilUsageUseCase/soilUsageUseCase.interface';
 
 @Injectable()
 export class DashboardService {
@@ -20,7 +28,11 @@ export class DashboardService {
 		@Inject(TOTAL_FARMS_AREA_USE_CASE)
 		private readonly totalFarmsAreaUsecase: ITotalFarmsAreaUseCase,
 		@Inject(FARMS_PER_STATE_USE_CASE)
-		private readonly farmsPerStateUseCase: IFarmsPerStateUseCase
+		private readonly farmsPerStateUseCase: IFarmsPerStateUseCase,
+		@Inject(DATA_FOR_CROP_USE_CASE)
+		private readonly dataForCropUseCase: IDataForCropUseCase,
+		@Inject(SOIL_USAGE_USE_CASE)
+		private readonly soilUsageUseCase: ISoilUsageUseCase
 	) {}
 
 	async totalFarms() {
@@ -29,7 +41,7 @@ export class DashboardService {
 		} catch (error) {
 			let [status, msg] = error.message.split('-');
 			throw new HttpException(
-				`${msg ?? 'Erro ao buscar todas as fazendas!.'}`,
+				`${msg ?? 'Erro ao buscar de todas as fazendas!.'}`,
 				+status
 			);
 		}
@@ -53,7 +65,31 @@ export class DashboardService {
 		} catch (error) {
 			let [status, msg] = error.message.split('-');
 			throw new HttpException(
-				`${msg ?? 'Erro ao buscar a área das fazendas!.'}`,
+				`${msg ?? 'Erro ao buscar os dados das fazendas por estado!.'}`,
+				+status
+			);
+		}
+	}
+
+	async dataForCrop() {
+		try {
+			return await this.dataForCropUseCase.execute();
+		} catch (error) {
+			let [status, msg] = error.message.split('-');
+			throw new HttpException(
+				`${msg ?? 'Erro ao buscar os dados das culturas!.'}`,
+				+status
+			);
+		}
+	}
+
+	async soilUsage() {
+		try {
+			return await this.soilUsageUseCase.execute();
+		} catch (error) {
+			let [status, msg] = error.message.split('-');
+			throw new HttpException(
+				`${msg ?? 'Erro ao buscar os dados de ocupação do solo!.'}`,
 				+status
 			);
 		}

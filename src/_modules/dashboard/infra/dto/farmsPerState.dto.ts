@@ -3,5 +3,4 @@ import { RuralProducerEntity } from 'src/infra/database/entities/rural_producer.
 export class FarmsPerStateDto {
 	state: string;
 	count: number;
-	data: RuralProducerEntity[];
 }
