@@ -9,5 +9,7 @@ export interface IGetAllCropsDto {
 }
 
 export interface IGetAllCropsUseCase {
-	execute(data: IGetAllCropsDto): Promise<IReturnPaginatedDTO<CropEntity>>;
+	execute(
+		getAllCropsDto: IGetAllCropsDto
+	): Promise<IReturnPaginatedDTO<CropEntity>>;
 }

@@ -1,4 +1,4 @@
-import { CropEntity } from 'src/infra/database/entities/crop.entity';
+import { OperationResultsDto } from 'src/_shared/protocols/dto/operationResults.dto';
 
 export const CREATE_CROP_USE_CASE = 'CreateCropUseCase';
 
@@ -7,5 +7,5 @@ export interface ICreateCropDto {
 }
 
 export interface ICreateCropUseCase {
-	execute(createCropDto: ICreateCropDto): Promise<CropEntity>;
+	execute(createCropDto: ICreateCropDto): Promise<OperationResultsDto>;
 }

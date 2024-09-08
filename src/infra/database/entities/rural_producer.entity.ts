@@ -13,7 +13,10 @@ export class RuralProducerEntity {
 	id: number;
 
 	@Column()
-	cpfCpnf: string;
+	cpf: string;
+
+	@Column()
+	cnpj: string;
 
 	@Column()
 	nameProducer: string;
@@ -36,7 +39,7 @@ export class RuralProducerEntity {
 	@Column()
 	vegetationArea: number;
 
-	@ManyToMany(() => CropEntity)
+	@ManyToMany(() => CropEntity, { cascade: true })
 	@JoinTable({ name: 'farmCrops' })
 	farmCrops: CropEntity[];
 }

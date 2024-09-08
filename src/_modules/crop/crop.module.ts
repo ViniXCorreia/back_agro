@@ -10,6 +10,8 @@ import { GET_ALL_CROPS_USE_CASE } from './useCases/getAllCropsUseCase/getAllCrop
 import { GetAllCropsUseCase } from './useCases/getAllCropsUseCase/getAllCropsUsecase.usecase';
 import { DELETE_CROP_USE_CASE } from './useCases/deleteCropUseCase/deleteCropUseCase.interface';
 import { DeleteCropUseCase } from './useCases/deleteCropUseCase/deleteCropUsecase.usecase';
+import { UpdateCropUseCase } from './useCases/updateCropUseCase/updateCropUseCase.usecase';
+import { UPDATE_CROP_USE_CASE } from './useCases/updateCropUseCase/updateCropUseCase.interface';
 
 @Module({
 	imports: [RepositoryProxyModule.register()],
@@ -27,6 +29,10 @@ import { DeleteCropUseCase } from './useCases/deleteCropUseCase/deleteCropUsecas
 		{
 			provide: GET_ALL_CROPS_USE_CASE,
 			useClass: GetAllCropsUseCase,
+		},
+		{
+			provide: UPDATE_CROP_USE_CASE,
+			useClass: UpdateCropUseCase,
 		},
 		{
 			provide: DELETE_CROP_USE_CASE,

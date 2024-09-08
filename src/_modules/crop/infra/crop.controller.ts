@@ -4,6 +4,7 @@ import {
 	Delete,
 	Get,
 	Param,
+	Patch,
 	Post,
 	Query,
 	Request,
@@ -11,6 +12,7 @@ import {
 import { CropService } from './crop.service';
 import { CreateCropDto } from './dto/create_crop.dto';
 import { PaginationDto } from 'src/_shared/protocols/dto/pagination.dto';
+import { UpdateCropDto } from './dto/update_crop.dto';
 
 @Controller('crop')
 export class CropController {
@@ -29,6 +31,14 @@ export class CropController {
 	@Get(':id')
 	async getCropById(@Param('id') id: number) {
 		return await this.cropService.getCropById(id);
+	}
+
+	@Patch(':id')
+	async updateCrop(
+		@Param('id') id: number,
+		@Body() updateCropDto: UpdateCropDto
+	) {
+		return await this.cropService.updateCrop(id, updateCropDto);
 	}
 
 	@Delete(':id')

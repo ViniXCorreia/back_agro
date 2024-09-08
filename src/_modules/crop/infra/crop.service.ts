@@ -17,6 +17,11 @@ import {
 	DELETE_CROP_USE_CASE,
 	IDeleteCropUseCase,
 } from '../useCases/deleteCropUseCase/deleteCropUseCase.interface';
+import {
+	IUpdateCropUseCase,
+	UPDATE_CROP_USE_CASE,
+} from '../useCases/updateCropUseCase/updateCropUseCase.interface';
+import { UpdateCropDto } from './dto/update_crop.dto';
 
 @Injectable()
 export class CropService {
@@ -28,7 +33,9 @@ export class CropService {
 		@Inject(GET_ALL_CROPS_USE_CASE)
 		private readonly getAllCropsUseCase: IGetAllCropsUseCase,
 		@Inject(DELETE_CROP_USE_CASE)
-		private readonly deleteCropUseCase: IDeleteCropUseCase
+		private readonly deleteCropUseCase: IDeleteCropUseCase,
+		@Inject(UPDATE_CROP_USE_CASE)
+		private readonly updateCropUseCase: IUpdateCropUseCase
 	) {}
 
 	async createCrop(createCropDto: CreateCropDto) {
@@ -55,6 +62,15 @@ export class CropService {
 		} catch (error) {
 			let [status, msg] = error.message.split('-');
 			throw new HttpException(`${msg ?? 'Erro ao buscar culturas!.'}`, +status);
+		}
+	}
+
+	async updateCrop(id: number, updateCropDto: UpdateCropDto) {
+		try {
+			return await this.updateCropUseCase.execute({ id, updateCropDto });
+		} catch (error) {
+			let [status, msg] = error.message.split('-');
+			throw new HttpException(`${msg ?? 'Erro ao deletar cultura!.'}`, +status);
 		}
 	}
 

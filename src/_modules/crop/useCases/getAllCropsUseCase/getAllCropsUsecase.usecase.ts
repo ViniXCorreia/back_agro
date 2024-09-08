@@ -15,16 +15,16 @@ export class GetAllCropsUseCase implements IGetAllCropsUseCase {
 		private readonly cropRepository: Repository<CropEntity>
 	) {}
 	async execute(
-		data: IGetAllCropsDto
+		getAllCropsDto: IGetAllCropsDto
 	): Promise<IReturnPaginatedDTO<CropEntity>> {
 		try {
-			const take = data.paginationDto.pageSize || 10;
+			const take = getAllCropsDto.paginationDto.pageSize || 10;
 			const skip =
-				data.paginationDto.pageNumber > 1
-					? (data.paginationDto.pageNumber - 1) * take
+				getAllCropsDto.paginationDto.pageNumber > 1
+					? (getAllCropsDto.paginationDto.pageNumber - 1) * take
 					: 0;
-			const order = data.paginationDto.orderBy || 'id';
-			const direction = data.paginationDto.orderDirection || 'ASC';
+			const order = getAllCropsDto.paginationDto.orderBy || 'id';
+			const direction = getAllCropsDto.paginationDto.orderDirection || 'ASC';
 
 			const [crops, total] = await this.cropRepository.findAndCount({
 				take: take,
