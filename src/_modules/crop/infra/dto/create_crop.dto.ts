@@ -3,7 +3,7 @@ import { ICreateCropDto } from '../../useCases/createCropUseCase/createCrop.inte
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCropDto implements ICreateCropDto {
-	@ApiProperty({ example: 'Milho', description: 'Nome do cultivo' })
+	@ApiProperty({ example: 'Milho' })
 	@IsString()
 	crop: string;
 }

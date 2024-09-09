@@ -3,6 +3,7 @@ import { RuralProducerEntity } from 'src/infra/database/entities/rural_producer.
 import { RepositoryProxyModule } from 'src/infra/database/proxy/repository.proxy.module';
 import { Repository } from 'typeorm';
 import { ISoilUsageUseCase } from './soilUsageUseCase.interface';
+import { ReturnAreasDto } from '../../infra/dto/returnAreas.dto';
 
 export class SoilUsageUseCase implements ISoilUsageUseCase {
 	logger = new Logger();
@@ -11,7 +12,7 @@ export class SoilUsageUseCase implements ISoilUsageUseCase {
 		@Inject(RepositoryProxyModule.RURAL_PRODUCER_REPOSITORY)
 		private readonly ruralProducerRepository: Repository<RuralProducerEntity>
 	) {}
-	async execute(): Promise<any> {
+	async execute(): Promise<ReturnAreasDto> {
 		try {
 			const result = await this.ruralProducerRepository
 				.createQueryBuilder('ruralProducer')
@@ -20,7 +21,11 @@ export class SoilUsageUseCase implements ISoilUsageUseCase {
 				.addSelect('SUM(ruralProducer.vegetationArea)', 'vegetationArea')
 				.getRawOne();
 
-			return result;
+			let returnAreas = new ReturnAreasDto();
+			returnAreas.totalArea = result.totalArea;
+			returnAreas.arableArea = result.arableArea;
+			returnAreas.vegetationArea = result.vegetationArea;
+			return returnAreas;
 		} catch (error) {
 			this.logger.error(JSON.stringify(error));
 			throw error;

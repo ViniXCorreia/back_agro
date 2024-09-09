@@ -6,7 +6,7 @@ import {
 	IGetAllCropsUseCase,
 } from './getAllCropsUseCase.interface';
 import { Inject, Logger } from '@nestjs/common';
-import { IReturnPaginatedDTO } from 'src/_shared/protocols/dto/returnPagination.dto';
+import { ReturnPaginatedDTO } from 'src/_shared/protocols/dto/returnPagination.dto';
 
 export class GetAllCropsUseCase implements IGetAllCropsUseCase {
 	logger = new Logger();
@@ -16,7 +16,7 @@ export class GetAllCropsUseCase implements IGetAllCropsUseCase {
 	) {}
 	async execute(
 		getAllCropsDto: IGetAllCropsDto
-	): Promise<IReturnPaginatedDTO<CropEntity>> {
+	): Promise<ReturnPaginatedDTO<CropEntity>> {
 		try {
 			const take = getAllCropsDto.paginationDto.pageSize || 10;
 			const skip =

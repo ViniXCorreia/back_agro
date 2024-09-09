@@ -6,7 +6,7 @@ import {
 import { RepositoryProxyModule } from 'src/infra/database/proxy/repository.proxy.module';
 import { Repository } from 'typeorm';
 import { RuralProducerEntity } from 'src/infra/database/entities/rural_producer.entity';
-import { IReturnPaginatedDTO } from 'src/_shared/protocols/dto/returnPagination.dto';
+import { ReturnPaginatedDTO } from 'src/_shared/protocols/dto/returnPagination.dto';
 
 export class GetAllRuralProducersUseCase
 	implements IGetAllRuralProducersUseCase
@@ -18,7 +18,7 @@ export class GetAllRuralProducersUseCase
 	) {}
 	async execute(
 		getAllRuralProducersDto: IGetAllRuralProducersDto
-	): Promise<IReturnPaginatedDTO<RuralProducerEntity>> {
+	): Promise<ReturnPaginatedDTO<RuralProducerEntity>> {
 		try {
 			const take = getAllRuralProducersDto.paginationDto.pageSize || 10;
 			const skip =
