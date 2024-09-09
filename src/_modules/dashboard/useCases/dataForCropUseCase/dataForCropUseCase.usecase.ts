@@ -4,7 +4,7 @@ import { RepositoryProxyModule } from 'src/infra/database/proxy/repository.proxy
 import { Repository } from 'typeorm';
 import { IDataForCropUseCase } from './dataForCropUseCase.inteface';
 import { RuralProducerEntity } from 'src/infra/database/entities/rural_producer.entity';
-import { CropsDataDto } from 'src/_modules/dashboard/infra/dto/CropsData.dto';
+import { CropsDataDto } from 'src/_modules/dashboard/infra/dto/cropsData.dto';
 import { CropDataReturnDto } from 'src/_modules/dashboard/infra/dto/cropsDataReturn.dto';
 
 export class DataForCropUseCase implements IDataForCropUseCase {

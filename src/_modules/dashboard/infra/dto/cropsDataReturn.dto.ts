@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CropsDataDto } from './CropsData.dto';
+import { CropsDataDto } from 'src/_modules/dashboard/infra/dto/cropsData.dto';
 
 export class CropDataReturnDto {
 	@ApiProperty()
